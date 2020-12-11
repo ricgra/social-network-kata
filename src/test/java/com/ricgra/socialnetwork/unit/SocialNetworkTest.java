@@ -3,6 +3,7 @@ package com.ricgra.socialnetwork.unit;
 import com.ricgra.socialnetwork.SocialNetwork;
 import com.ricgra.socialnetwork.model.Post;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -12,10 +13,13 @@ public class SocialNetworkTest {
 
     private SocialNetwork socialNetwork;
 
+    @BeforeTest
+    public void init() {
+        socialNetwork = new SocialNetwork();
+    }
+
     @Test(priority = 1, description = "Should create users posts")
     public void shouldCreateUsersPosts() {
-        socialNetwork = new SocialNetwork();
-
         Assert.assertTrue(socialNetwork.createPost("Alice -> I love the weather today"));
         Assert.assertTrue(socialNetwork.createPost("Bob -> Damn! We lost!"));
         Assert.assertTrue(socialNetwork.createPost("Bob -> Good game though."));
@@ -48,13 +52,18 @@ public class SocialNetworkTest {
         Assert.assertEquals(posts, "I love the weather today");
     }
 
-    @Test(priority = 6, description = "Should gets and print posts of a user's wall")
+    @Test(priority = 6, description = "Should get and print posts of a user's wall")
     public void shouldGetWallPostsAndPrint() {
         String posts = socialNetwork.getWallPostsAndPrint("Charlie wall");
 
         String[] postsRows = posts.split("\n");
         Assert.assertEquals(postsRows[0], "Charlie - I'm in New York today! Anyone wants to have a coffee?");
         Assert.assertEquals(postsRows[1], "Alice - I love the weather today");
+    }
+
+    @Test(priority = 7, description = "Should get only user's posts from wall")
+    public void shouldGetOnlyUserPostsFromWall() {
+        Assert.assertEquals(socialNetwork.getWallPosts("Bob wall").size(), 2);
     }
 
 }

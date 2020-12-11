@@ -27,9 +27,7 @@ public class SocialNetwork {
         String pattern = CommandEnum.POSTING.getPattern();
         String[] userInputData = command.split(pattern);
 
-        Optional<User> optionalUser = userList.stream()
-                .filter(listUser -> listUser.getUsername().equals(userInputData[0]))
-                .findFirst();
+        Optional<User> optionalUser = findUser(userList, userInputData[0]);
 
         User user;
         if(!optionalUser.isPresent()) {
@@ -68,9 +66,7 @@ public class SocialNetwork {
         String pattern = CommandEnum.READING.getPattern();
         String[] userInputData = command.split(pattern);
 
-        List<Post> userPosts = userList.stream()
-                .filter(listUser -> listUser.getUsername().equals(userInputData[0]))
-                .findFirst()
+        List<Post> userPosts = findUser(userList, userInputData[0])
                 .map(user -> user.getPosts())
                 .orElseGet(ArrayList::new);
 
@@ -86,9 +82,7 @@ public class SocialNetwork {
         String pattern = CommandEnum.FOLLOWS.getPattern();
         String[] userInputData = command.split(pattern);
 
-        User user = userList.stream()
-                .filter(listUser -> listUser.getUsername().equals(userInputData[0]))
-                .findFirst()
+        User user = findUser(userList, userInputData[0])
                 .get();
 
         List<String> follows = user.getFollowedUsernames();
@@ -120,12 +114,14 @@ public class SocialNetwork {
 
         List<Post> wallPosts = new ArrayList<>();
 
-        User currentUser = userList.stream()
-                .filter(listUser -> listUser.getUsername().equals(userInputData[0]))
-                .findFirst()
+        User currentUser = findUser(userList, userInputData[0])
                 .orElseGet(User::new);
 
         wallPosts.addAll(currentUser.getPosts());
+
+        if(currentUser.getFollowedUsernames() == null) {
+            return wallPosts;
+        }
 
         List<User> followdUsers = userList.stream()
                 .filter(listUser -> currentUser.getFollowedUsernames().contains(listUser.getUsername()))
@@ -151,6 +147,18 @@ public class SocialNetwork {
         System.out.println(output.toString());
 
         return output.toString();
+    }
+
+    /**
+     * Find user in list
+     * @param userList
+     * @param username
+     * @return
+     */
+    private Optional<User> findUser(List<User> userList, String username) {
+        return userList.stream()
+                .filter(user -> user.getUsername().equals(username))
+                .findFirst();
     }
 
 }
