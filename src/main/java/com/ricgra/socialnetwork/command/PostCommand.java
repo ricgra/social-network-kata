@@ -11,7 +11,7 @@ public class PostCommand extends AbstractCommand<Boolean> {
 
     @Override
     public Boolean execute() {
-        String username = inputData[0];
+        String username = getUsernameFromCommand();
         String postMessage = inputData[1];
 
         return socialNetwork.createPost(username, postMessage);

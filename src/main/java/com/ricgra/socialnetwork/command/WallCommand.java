@@ -14,7 +14,7 @@ public class WallCommand extends AbstractCommand<List<Post>> {
 
     @Override
     public List<Post> execute() {
-        String username = inputData[0];
+        String username = getUsernameFromCommand();
 
         return socialNetwork.getWallPosts(username);
     }

@@ -27,4 +27,8 @@ public abstract class AbstractCommand<T> implements Command<T> {
         return command.split(pattern);
     }
 
+    protected String getUsernameFromCommand() {
+        return inputData[0];
+    }
+
 }

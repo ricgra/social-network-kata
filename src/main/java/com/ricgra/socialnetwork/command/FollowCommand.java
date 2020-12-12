@@ -11,7 +11,7 @@ public class FollowCommand extends AbstractCommand<Boolean> {
 
     @Override
     public Boolean execute() {
-        String username = inputData[0];
+        String username = getUsernameFromCommand();
         String usernameToFollow = inputData[1];
 
         return socialNetwork.follow(username, usernameToFollow);
