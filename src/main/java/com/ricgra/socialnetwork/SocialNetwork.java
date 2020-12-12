@@ -1,6 +1,5 @@
 package com.ricgra.socialnetwork;
 
-import com.ricgra.socialnetwork.model.CommandEnum;
 import com.ricgra.socialnetwork.model.Post;
 import com.ricgra.socialnetwork.model.User;
 
@@ -20,14 +19,12 @@ public class SocialNetwork {
 
     /**
      * Create a new post
-     * @param command command as string
+     * @param username
+     * @param postMessage
      * @return
      */
-    public boolean createPost(String command) {
-        String pattern = CommandEnum.POSTING.getPattern();
-        String[] userInputData = command.split(pattern);
-
-        Optional<User> optionalUser = findUser(userList, userInputData[0]);
+    public boolean createPost(String username, String postMessage) {
+        Optional<User> optionalUser = findUser(userList, username);
 
         User user;
         if(!optionalUser.isPresent()) {
@@ -37,12 +34,12 @@ public class SocialNetwork {
             user = optionalUser.get();
         }
 
-        user.setUsername(userInputData[0]);
+        user.setUsername(username);
 
         List<Post> posts = user.getPosts() == null ? new ArrayList<>() : user.getPosts();
         Post post = new Post();
-        post.setUser(userInputData[0]);
-        post.setMessage(userInputData[1]);
+        post.setUser(username);
+        post.setMessage(postMessage);
         post.setInsertTime(Instant.now().toEpochMilli());
         posts.add(post);
 
@@ -51,22 +48,19 @@ public class SocialNetwork {
         return true;
     }
 
-    public String getPostsAndPrint(String command) {
-        List<Post> posts = getPosts(command);
+    public String getPostsAndPrint(String username) {
+        List<Post> posts = getPosts(username);
 
         return print(posts, false);
     }
 
     /**
      * Read all user posts
-     * @param command command as string
+     * @param username
      * @return
      */
-    public List<Post> getPosts(String command) {
-        String pattern = CommandEnum.READING.getPattern();
-        String[] userInputData = command.split(pattern);
-
-        List<Post> userPosts = findUser(userList, userInputData[0])
+    public List<Post> getPosts(String username) {
+        List<Post> userPosts = findUser(userList, username)
                 .map(user -> user.getPosts())
                 .orElseGet(ArrayList::new);
 
@@ -75,14 +69,12 @@ public class SocialNetwork {
 
     /**
      * Follow a user
-     * @param command command as string
+     * @param username
+     * @param usernameToFollow
      * @return
      */
-    public boolean follow(String command) {
-        String pattern = CommandEnum.FOLLOWS.getPattern();
-        String[] userInputData = command.split(pattern);
-
-        User user = findUser(userList, userInputData[0])
+    public boolean follow(String username, String usernameToFollow) {
+        User user = findUser(userList, username)
                 .get();
 
         List<String> follows = user.getFollowedUsernames();
@@ -90,31 +82,28 @@ public class SocialNetwork {
             follows = new ArrayList<>();
         }
 
-        follows.add(userInputData[1]);
+        follows.add(usernameToFollow);
 
         user.setFollowedUsernames(follows);
 
         return true;
     }
 
-    public String getWallPostsAndPrint(String command) {
-        List<Post> posts = getWallPosts(command);
+    public String getWallPostsAndPrint(String username) {
+        List<Post> posts = getWallPosts(username);
 
         return print(posts, true);
     }
 
     /**
      * Get all wall posts of a user
-     * @param command command as string
+     * @param username
      * @return
      */
-    public List<Post> getWallPosts(String command) {
-        String pattern = CommandEnum.WALLS.getPattern();
-        String[] userInputData = command.split(pattern);
-
+    public List<Post> getWallPosts(String username) {
         List<Post> wallPosts = new ArrayList<>();
 
-        User currentUser = findUser(userList, userInputData[0])
+        User currentUser = findUser(userList, username)
                 .orElseGet(User::new);
 
         wallPosts.addAll(currentUser.getPosts());
