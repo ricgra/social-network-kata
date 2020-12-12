@@ -27,17 +27,13 @@ public class SocialNetworkExecutor {
 
                 return isPosted ? "" : null;
             case READING:
-                List<Post> posts = executeCommand(new ReadCommand(inputCommand, socialNetwork));
-
-                return ConsoleOutputUtils.print(posts, false);
+                return executeCommandAndPrint(new ReadCommand(inputCommand, socialNetwork), false);
             case FOLLOWS:
                 boolean isFollow = executeCommand(new FollowCommand(inputCommand, socialNetwork));
 
                 return isFollow ? "" : null;
             case WALL:
-                List<Post> wallPosts = executeCommand(new WallCommand(inputCommand, socialNetwork));
-
-                return ConsoleOutputUtils.print(wallPosts, true);
+                return executeCommandAndPrint(new WallCommand(inputCommand, socialNetwork), true);
             default:
                 return null;
         }
@@ -45,6 +41,12 @@ public class SocialNetworkExecutor {
 
     private <T> T executeCommand(Command command) {
         return (T) command.execute();
+    }
+
+    private String executeCommandAndPrint(Command command, boolean printName) {
+        List<Post> posts = executeCommand(command);
+
+        return ConsoleOutputUtils.print(posts, printName);
     }
 
 }
