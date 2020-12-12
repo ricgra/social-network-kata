@@ -49,12 +49,6 @@ public class SocialNetwork {
         return true;
     }
 
-    public String getPostsAndPrint(String username) {
-        List<Post> posts = getPosts(username);
-
-        return ConsoleOutputUtils.print(posts, false);
-    }
-
     /**
      * Read all user posts
      * @param username
@@ -88,12 +82,6 @@ public class SocialNetwork {
         user.setFollowedUsernames(follows);
 
         return true;
-    }
-
-    public String getWallPostsAndPrint(String username) {
-        List<Post> posts = getWallPosts(username);
-
-        return ConsoleOutputUtils.print(posts, true);
     }
 
     /**

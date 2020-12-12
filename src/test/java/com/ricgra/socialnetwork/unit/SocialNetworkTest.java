@@ -46,22 +46,7 @@ public class SocialNetworkTest {
         Assert.assertEquals(socialNetwork.getWallPosts("Charlie").size(), 2);
     }
 
-    @Test(priority = 5, description = "Should print a user's post")
-    public void shouldPrintPosts() {
-        String posts = socialNetwork.getPostsAndPrint("Alice");
-        Assert.assertEquals(posts, "I love the weather today");
-    }
-
-    @Test(priority = 6, description = "Should get and print posts of a user's wall")
-    public void shouldGetWallPostsAndPrint() {
-        String posts = socialNetwork.getWallPostsAndPrint("Charlie");
-
-        String[] postsRows = posts.split("\n");
-        Assert.assertEquals(postsRows[0], "Charlie - I'm in New York today! Anyone wants to have a coffee?");
-        Assert.assertEquals(postsRows[1], "Alice - I love the weather today");
-    }
-
-    @Test(priority = 7, description = "Should get only user's posts from wall")
+    @Test(priority = 5, description = "Should get only user's posts from wall")
     public void shouldGetOnlyUserPostsFromWall() {
         Assert.assertEquals(socialNetwork.getWallPosts("Bob").size(), 2);
     }
