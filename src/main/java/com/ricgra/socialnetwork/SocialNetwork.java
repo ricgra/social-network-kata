@@ -133,6 +133,9 @@ public class SocialNetwork {
 
     public String print(List<Post> posts, boolean printName) {
         StringBuilder output = new StringBuilder();
+        if(posts == null || posts.isEmpty()) {
+            return output.toString();
+        }
 
         posts.forEach(post ->  {
             if(printName) {
