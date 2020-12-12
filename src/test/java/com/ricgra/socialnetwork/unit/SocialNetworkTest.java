@@ -32,8 +32,8 @@ public class SocialNetworkTest {
         Assert.assertEquals(posts.get(0).getMessage(), "I love the weather today");
 
         posts = socialNetwork.getPosts("Bob");
-        Assert.assertEquals(posts.get(0).getMessage(), "Damn! We lost!");
-        Assert.assertEquals(posts.get(1).getMessage(), "Good game though.");
+        Assert.assertEquals(posts.get(0).getMessage(), "Good game though.");
+        Assert.assertEquals(posts.get(1).getMessage(), "Damn! We lost!");
     }
 
     @Test(priority = 3, description = "Should follow a user")

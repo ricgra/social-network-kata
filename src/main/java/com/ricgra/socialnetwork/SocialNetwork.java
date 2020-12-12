@@ -2,10 +2,11 @@ package com.ricgra.socialnetwork;
 
 import com.ricgra.socialnetwork.model.Post;
 import com.ricgra.socialnetwork.model.User;
-import com.ricgra.socialnetwork.util.ConsoleOutputUtils;
+import com.ricgra.socialnetwork.util.TimeUtils;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,7 +42,7 @@ public class SocialNetwork {
         Post post = new Post();
         post.setUser(username);
         post.setMessage(postMessage);
-        post.setInsertTime(Instant.now().toEpochMilli());
+        post.setInsertTime(TimeUtils.getNowInMillis());
         posts.add(post);
 
         user.setPosts(posts);
@@ -58,6 +59,8 @@ public class SocialNetwork {
         List<Post> userPosts = findUser(userList, username)
                 .map(user -> user.getPosts())
                 .orElseGet(ArrayList::new);
+
+        Collections.reverse(userPosts);
 
         return userPosts;
     }
@@ -104,7 +107,10 @@ public class SocialNetwork {
         List<User> followdUsers = userList.stream()
                 .filter(listUser -> currentUser.getFollowedUsernames().contains(listUser.getUsername()))
                 .collect(Collectors.toList());
+
         followdUsers.forEach(followedUser -> wallPosts.addAll(followedUser.getPosts()));
+
+        wallPosts.sort((post1, post2) -> Long.compare(post2.getInsertTime(), post1.getInsertTime()));
 
         return wallPosts;
     }

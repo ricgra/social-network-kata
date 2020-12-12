@@ -21,10 +21,14 @@ public class SocialNetworkExecutorTest {
     }
 
     @Test(priority = 2, description = "Should create user's posts")
-    public void shouldPostMessagesWithoutAnyError() {
+    public void shouldPostMessagesWithoutAnyError() throws InterruptedException {
         Assert.assertEquals(socialNetworkExecutor.runCommand("Alice -> I love the weather today"), "");
+        // Needed to emulate the create post operation with differents timestamps
+        Thread.sleep(1);
         Assert.assertEquals(socialNetworkExecutor.runCommand("Bob -> Damn! We lost!"), "");
+        Thread.sleep(1);
         Assert.assertEquals(socialNetworkExecutor.runCommand("Bob -> Good game though."), "");
+        Thread.sleep(1);
         Assert.assertEquals(socialNetworkExecutor.runCommand("Charlie -> I'm in New York today! Anyone wants to have a coffee?"), "");
     }
 
@@ -40,24 +44,30 @@ public class SocialNetworkExecutorTest {
         Assert.assertTrue(post.startsWith("I love the weather today"));
     }
 
-    @Test(priority = 5, description = "Should follow a user")
-    public void shouldFollowWithoutAnyError() {
+    @Test(priority = 6, description = "Should follow a user")
+    public void shouldFollowFirstUserWithoutAnyError() {
+        socialNetworkExecutor.runCommand("Charlie follows Alice");
+    }
+
+    @Test(priority = 7, description = "Should follow a user")
+    public void shouldFollowSecondUserWithoutAnyError() {
         socialNetworkExecutor.runCommand("Charlie follows Bob");
     }
 
-    @Test(priority = 6, description = "Should get a user's wall posts")
+    @Test(priority = 8, description = "Should get a user's wall posts")
     public void shouldPrintWallWithoutAnyError() {
-        Assert.assertEquals(socialNetworkExecutor.runCommand("Charlie walls").split("\n").length, 3);
+        Assert.assertEquals(socialNetworkExecutor.runCommand("Charlie wall").split("\n").length, 4);
     }
 
-    @Test(priority = 7, description = "Should get and print posts of a user's wall")
+    @Test(priority = 9, description = "Should get and print posts of a user's wall")
     public void shouldGetWallPostsAndPrint() {
-        String posts = socialNetworkExecutor.runCommand("Charlie walls");
+        String posts = socialNetworkExecutor.runCommand("Charlie wall");
 
         String[] postsRows = posts.split("\n");
         Assert.assertTrue(postsRows[0].startsWith("Charlie - I'm in New York today! Anyone wants to have a coffee?"));
-        Assert.assertTrue(postsRows[1].startsWith("Bob - Damn! We lost!"));
-        Assert.assertTrue(postsRows[2].startsWith("Bob - Good game though."));
+        Assert.assertTrue(postsRows[1].startsWith("Bob - Good game though."));
+        Assert.assertTrue(postsRows[2].startsWith("Bob - Damn! We lost!"));
+        Assert.assertTrue(postsRows[3].startsWith("Alice - I love the weather today"));
     }
 
 }
