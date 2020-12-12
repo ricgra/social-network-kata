@@ -6,6 +6,7 @@ import com.ricgra.socialnetwork.command.ReadCommand;
 import com.ricgra.socialnetwork.command.WallCommand;
 import com.ricgra.socialnetwork.model.CommandEnum;
 import com.ricgra.socialnetwork.model.Post;
+import com.ricgra.socialnetwork.util.ConsoleOutputUtils;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class SocialNetworkExecutor {
             case READING:
                 List<Post> posts = new ReadCommand(inputCommand, socialNetwork).execute();
 
-                return socialNetwork.print(posts, false);
+                return ConsoleOutputUtils.print(posts, false);
             case FOLLOWS:
                 boolean isFollow = new FollowCommand(inputCommand, socialNetwork).execute();
 
@@ -39,7 +40,7 @@ public class SocialNetworkExecutor {
             case WALLS:
                 List<Post> wallPosts = new WallCommand(inputCommand, socialNetwork).execute();
 
-                return socialNetwork.print(wallPosts, true);
+                return ConsoleOutputUtils.print(wallPosts, true);
             default:
                 return null;
         }

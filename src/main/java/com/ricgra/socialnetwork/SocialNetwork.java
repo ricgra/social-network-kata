@@ -2,6 +2,7 @@ package com.ricgra.socialnetwork;
 
 import com.ricgra.socialnetwork.model.Post;
 import com.ricgra.socialnetwork.model.User;
+import com.ricgra.socialnetwork.util.ConsoleOutputUtils;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class SocialNetwork {
     public String getPostsAndPrint(String username) {
         List<Post> posts = getPosts(username);
 
-        return print(posts, false);
+        return ConsoleOutputUtils.print(posts, false);
     }
 
     /**
@@ -92,7 +93,7 @@ public class SocialNetwork {
     public String getWallPostsAndPrint(String username) {
         List<Post> posts = getWallPosts(username);
 
-        return print(posts, true);
+        return ConsoleOutputUtils.print(posts, true);
     }
 
     /**
@@ -118,27 +119,6 @@ public class SocialNetwork {
         followdUsers.forEach(followedUser -> wallPosts.addAll(followedUser.getPosts()));
 
         return wallPosts;
-    }
-
-    public String print(List<Post> posts, boolean printName) {
-        StringBuilder output = new StringBuilder();
-        if(posts == null || posts.isEmpty()) {
-            return output.toString();
-        }
-
-        posts.forEach(post ->  {
-            if(printName) {
-                output.append(post.getUser());
-                output.append(" - ");
-            }
-            output.append(post.getMessage());
-            output.append("\n");
-        });
-        output.deleteCharAt(output.length() - 1);
-
-        System.out.println(output.toString());
-
-        return output.toString();
     }
 
     /**
