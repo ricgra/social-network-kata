@@ -131,7 +131,7 @@ public class SocialNetwork {
         return wallPosts;
     }
 
-    private String print(List<Post> posts, boolean printName) {
+    public String print(List<Post> posts, boolean printName) {
         StringBuilder output = new StringBuilder();
 
         posts.forEach(post ->  {
