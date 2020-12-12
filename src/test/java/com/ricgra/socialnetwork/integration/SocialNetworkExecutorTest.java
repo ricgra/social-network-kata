@@ -50,7 +50,7 @@ public class SocialNetworkExecutorTest {
         Assert.assertEquals(socialNetworkExecutor.runCommand("Charlie walls").split("\n").length, 3);
     }
 
-    @Test(priority = 6, description = "Should get and print posts of a user's wall")
+    @Test(priority = 7, description = "Should get and print posts of a user's wall")
     public void shouldGetWallPostsAndPrint() {
         String posts = socialNetworkExecutor.runCommand("Charlie walls");
 
