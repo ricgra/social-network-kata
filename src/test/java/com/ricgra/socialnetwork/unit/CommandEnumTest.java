@@ -37,14 +37,14 @@ public class CommandEnumTest {
         Assert.assertEquals(CommandEnum.getTypeFromInput("Alice follows Bob"), CommandEnum.FOLLOWS);
     }
 
-    @Test(description = "Test the WALLS command pattern")
+    @Test(description = "Test the WALL command pattern")
     public void testWallPatternSymbol() {
-        Assert.assertEquals(CommandEnum.WALLS.getPattern(), " wall");
+        Assert.assertEquals(CommandEnum.WALL.getPattern(), " wall");
     }
 
     @Test(description = "Test the WALL command from input")
     public void testWallCommandFromInput() {
-        Assert.assertEquals(CommandEnum.getTypeFromInput("Alice wall"), CommandEnum.WALLS);
+        Assert.assertEquals(CommandEnum.getTypeFromInput("Alice wall"), CommandEnum.WALL);
     }
 
 }

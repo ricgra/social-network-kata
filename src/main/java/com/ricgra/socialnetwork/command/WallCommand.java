@@ -9,7 +9,7 @@ import java.util.List;
 public class WallCommand extends AbstractCommand<List<Post>> {
 
     public WallCommand(String command, SocialNetwork socialNetwork) {
-        super(CommandEnum.WALLS, command, socialNetwork);
+        super(CommandEnum.WALL, command, socialNetwork);
     }
 
     @Override

@@ -7,7 +7,7 @@ public enum CommandEnum {
     POSTING(" -> "),
     READING(" "),
     FOLLOWS(" follows "),
-    WALLS(" wall");
+    WALL(" wall");
 
     private String pattern;
 

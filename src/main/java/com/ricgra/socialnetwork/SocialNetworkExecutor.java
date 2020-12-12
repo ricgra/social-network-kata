@@ -1,9 +1,6 @@
 package com.ricgra.socialnetwork;
 
-import com.ricgra.socialnetwork.command.FollowCommand;
-import com.ricgra.socialnetwork.command.PostCommand;
-import com.ricgra.socialnetwork.command.ReadCommand;
-import com.ricgra.socialnetwork.command.WallCommand;
+import com.ricgra.socialnetwork.command.*;
 import com.ricgra.socialnetwork.model.CommandEnum;
 import com.ricgra.socialnetwork.model.Post;
 import com.ricgra.socialnetwork.util.ConsoleOutputUtils;
@@ -26,24 +23,28 @@ public class SocialNetworkExecutor {
 
         switch(command) {
             case POSTING:
-                boolean isPosted = new PostCommand(inputCommand, socialNetwork).execute();
+                boolean isPosted = executeCommand(new PostCommand(inputCommand, socialNetwork));
 
                 return isPosted ? "" : null;
             case READING:
-                List<Post> posts = new ReadCommand(inputCommand, socialNetwork).execute();
+                List<Post> posts = executeCommand(new ReadCommand(inputCommand, socialNetwork));
 
                 return ConsoleOutputUtils.print(posts, false);
             case FOLLOWS:
-                boolean isFollow = new FollowCommand(inputCommand, socialNetwork).execute();
+                boolean isFollow = executeCommand(new FollowCommand(inputCommand, socialNetwork));
 
                 return isFollow ? "" : null;
-            case WALLS:
-                List<Post> wallPosts = new WallCommand(inputCommand, socialNetwork).execute();
+            case WALL:
+                List<Post> wallPosts = executeCommand(new WallCommand(inputCommand, socialNetwork));
 
                 return ConsoleOutputUtils.print(wallPosts, true);
             default:
                 return null;
         }
+    }
+
+    private <T> T executeCommand(Command command) {
+        return (T) command.execute();
     }
 
 }
