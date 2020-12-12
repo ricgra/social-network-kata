@@ -36,8 +36,8 @@ public class SocialNetworkExecutorTest {
 
     @Test(priority = 4, description = "Should print a user's post")
     public void shouldPrintAUserPost() {
-        String posts = socialNetworkExecutor.runCommand("Alice");
-        Assert.assertEquals(posts, "I love the weather today");
+        String post = socialNetworkExecutor.runCommand("Alice");
+        Assert.assertTrue(post.startsWith("I love the weather today"));
     }
 
     @Test(priority = 5, description = "Should follow a user")
@@ -55,9 +55,9 @@ public class SocialNetworkExecutorTest {
         String posts = socialNetworkExecutor.runCommand("Charlie walls");
 
         String[] postsRows = posts.split("\n");
-        Assert.assertEquals(postsRows[0], "Charlie - I'm in New York today! Anyone wants to have a coffee?");
-        Assert.assertEquals(postsRows[1], "Bob - Damn! We lost!");
-        Assert.assertEquals(postsRows[2], "Bob - Good game though.");
+        Assert.assertTrue(postsRows[0].startsWith("Charlie - I'm in New York today! Anyone wants to have a coffee?"));
+        Assert.assertTrue(postsRows[1].startsWith("Bob - Damn! We lost!"));
+        Assert.assertTrue(postsRows[2].startsWith("Bob - Good game though."));
     }
 
 }

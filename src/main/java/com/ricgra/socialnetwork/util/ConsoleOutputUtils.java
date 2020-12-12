@@ -3,28 +3,26 @@ package com.ricgra.socialnetwork.util;
 import com.ricgra.socialnetwork.model.Post;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ConsoleOutputUtils {
 
     public static String print(List<Post> posts, boolean printName) {
-        StringBuilder output = new StringBuilder();
         if(posts == null || posts.isEmpty()) {
-            return output.toString();
+            return "";
         }
 
-        posts.forEach(post ->  {
-            if(printName) {
-                output.append(post.getUser());
-                output.append(" - ");
-            }
-            output.append(post.getMessage());
-            output.append("\n");
-        });
-        output.deleteCharAt(output.length() - 1);
+        String output = buildConsoleMessage(posts, printName);
 
-        System.out.println(output.toString());
+        System.out.println(output);
 
-        return output.toString();
+        return output;
+    }
+
+    public static String buildConsoleMessage(List<Post> posts, boolean printName) {
+        return posts.stream()
+                .map(post -> String.format(post.getFormattedMessage(printName), "\n"))
+                .collect(Collectors.joining("\n"));
     }
 
 }

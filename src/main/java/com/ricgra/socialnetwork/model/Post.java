@@ -1,5 +1,7 @@
 package com.ricgra.socialnetwork.model;
 
+import com.ricgra.socialnetwork.util.TimeUtils;
+
 public class Post {
 
     private String user;
@@ -28,6 +30,37 @@ public class Post {
 
     public void setInsertTime(long insertTime) {
         this.insertTime = insertTime;
+    }
+
+    /**
+     * Get the time formatted
+     * ex. 15 seconds ago
+     * @return
+     */
+    private String formatMessageTime() {
+        return TimeUtils.getTimeAgo(insertTime);
+    }
+
+    /**
+     * Get the time and message formatted
+     * If printName is true:
+     * ex. Name - Tweet message (15 seconds ago)
+     * if not:
+     * ex. Tweet message (15 seconds ago)
+     * @param printName
+     * @return
+     */
+    public String getFormattedMessage(boolean printName) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if(printName) {
+            stringBuilder.append(getUser());
+            stringBuilder.append(" - ");
+        }
+        stringBuilder.append(getMessage());
+        stringBuilder.append(" (");
+        stringBuilder.append(formatMessageTime());
+        stringBuilder.append(")");
+        return stringBuilder.toString();
     }
 
 }
