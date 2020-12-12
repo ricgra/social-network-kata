@@ -2,14 +2,10 @@ package com.ricgra.socialnetwork.command;
 
 import com.ricgra.socialnetwork.SocialNetwork;
 
-public class PostCommand implements Command<Boolean> {
-
-    private String command;
-    private SocialNetwork socialNetwork;
+public class PostCommand extends AbstractCommand<Boolean> {
 
     public PostCommand(String command, SocialNetwork socialNetwork) {
-        this.command = command;
-        this.socialNetwork = socialNetwork;
+        super(command, socialNetwork);
     }
 
     @Override

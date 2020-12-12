@@ -5,14 +5,10 @@ import com.ricgra.socialnetwork.model.Post;
 
 import java.util.List;
 
-public class WallCommand implements Command<List<Post>> {
-
-    private String command;
-    private SocialNetwork socialNetwork;
+public class WallCommand extends AbstractCommand<List<Post>> {
 
     public WallCommand(String command, SocialNetwork socialNetwork) {
-        this.command = command;
-        this.socialNetwork = socialNetwork;
+        super(command, socialNetwork);
     }
 
     @Override
