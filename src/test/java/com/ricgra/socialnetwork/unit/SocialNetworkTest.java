@@ -36,17 +36,23 @@ public class SocialNetworkTest {
         Assert.assertEquals(posts.get(1).getMessage(), "Damn! We lost!");
     }
 
-    @Test(priority = 3, description = "Should follow a user")
+    @Test(priority = 3)
+    public void shouldNotReadPostsForNoExistingUser() {
+        List<Post> posts = socialNetwork.getPosts("Fakeuser");
+        Assert.assertTrue(posts.isEmpty());
+    }
+
+    @Test(priority = 4, description = "Should follow a user")
     public void shouldFollowAUser() {
         Assert.assertTrue(socialNetwork.follow("Charlie", "Alice"));
     }
 
-    @Test(priority = 4, description = "Should get wall's posts")
+    @Test(priority = 5, description = "Should get wall's posts")
     public void shouldGetWallPosts() {
         Assert.assertEquals(socialNetwork.getWallPosts("Charlie").size(), 2);
     }
 
-    @Test(priority = 5, description = "Should get only user's posts from wall")
+    @Test(priority = 6, description = "Should get only user's posts from wall")
     public void shouldGetOnlyUserPostsFromWall() {
         Assert.assertEquals(socialNetwork.getWallPosts("Bob").size(), 2);
     }
