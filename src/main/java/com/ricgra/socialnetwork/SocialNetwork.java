@@ -2,9 +2,7 @@ package com.ricgra.socialnetwork;
 
 import com.ricgra.socialnetwork.model.Post;
 import com.ricgra.socialnetwork.model.User;
-import com.ricgra.socialnetwork.util.TimeUtils;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,10 +37,7 @@ public class SocialNetwork {
         user.setUsername(username);
 
         List<Post> posts = user.getPosts() == null ? new ArrayList<>() : user.getPosts();
-        Post post = new Post();
-        post.setUser(username);
-        post.setMessage(postMessage);
-        post.setInsertTime(TimeUtils.getNowInMillis());
+        Post post = new Post(username, postMessage);
         posts.add(post);
 
         user.setPosts(posts);

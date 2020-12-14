@@ -8,6 +8,20 @@ public class Post {
     private String message;
     private long insertTime;
 
+    public Post() {}
+
+    public Post(String user, String message) {
+        this.user = user;
+        this.message = message;
+        insertTime = TimeUtils.getNowInMillis();
+    }
+
+    public Post(String user, String message, long insertTime) {
+        this.user = user;
+        this.message = message;
+        this.insertTime = insertTime;
+    }
+
     public String getMessage() {
         return message;
     }
