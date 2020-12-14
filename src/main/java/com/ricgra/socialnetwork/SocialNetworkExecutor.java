@@ -45,6 +45,9 @@ public class SocialNetworkExecutor {
 
     private String executeCommandAndPrint(Command command, boolean printName) {
         List<Post> posts = executeCommand(command);
+        if(posts == null) {
+            return null;
+        }
 
         return ConsoleOutputUtils.print(posts, printName);
     }

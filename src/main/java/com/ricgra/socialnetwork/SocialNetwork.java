@@ -48,12 +48,17 @@ public class SocialNetwork {
     /**
      * Read all user posts
      * @param username
-     * @return
+     * @return user's post or null if not exists the user
      */
     public List<Post> getPosts(String username) {
-        List<Post> userPosts = findUser(userList, username)
-                .map(user -> user.getPosts())
-                .orElseGet(ArrayList::new);
+        Optional<List<Post>> optionalUserPosts = findUser(userList, username)
+                .map(user -> user.getPosts());
+
+        if(!optionalUserPosts.isPresent()) {
+            return null;
+        }
+
+        List<Post> userPosts = optionalUserPosts.get();
 
         Collections.reverse(userPosts);
 
@@ -85,13 +90,17 @@ public class SocialNetwork {
     /**
      * Get all wall posts of a user
      * @param username
-     * @return
+     * @return the user's wall or null if the user not exists
      */
     public List<Post> getWallPosts(String username) {
         List<Post> wallPosts = new ArrayList<>();
 
-        User currentUser = findUser(userList, username)
-                .orElseGet(User::new);
+        Optional<User> optionalUser = findUser(userList, username);
+        if(!optionalUser.isPresent()) {
+            return null;
+        }
+
+        User currentUser = optionalUser.get();
 
         wallPosts.addAll(currentUser.getPosts());
 
