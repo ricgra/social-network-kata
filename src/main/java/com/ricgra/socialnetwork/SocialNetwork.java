@@ -101,16 +101,12 @@ public class SocialNetwork {
         }
 
         User currentUser = optionalUser.get();
-
         wallPosts.addAll(currentUser.getPosts());
 
-        if(currentUser.getFollowedUsernames() == null) {
+        List<User> followdUsers = getFollowedUsers(currentUser);
+        if(followdUsers == null) {
             return wallPosts;
         }
-
-        List<User> followdUsers = userList.stream()
-                .filter(listUser -> currentUser.getFollowedUsernames().contains(listUser.getUsername()))
-                .collect(Collectors.toList());
 
         followdUsers.forEach(followedUser -> wallPosts.addAll(followedUser.getPosts()));
 
@@ -129,6 +125,23 @@ public class SocialNetwork {
         return userList.stream()
                 .filter(user -> user.getUsername().equals(username))
                 .findFirst();
+    }
+
+    /**
+     * Get all followed users
+     * @param user
+     * @return a list of followed users
+     */
+    private List<User> getFollowedUsers(User user) {
+        List<String> followedUsernames = user.getFollowedUsernames();
+
+        if(followedUsernames == null || followedUsernames.isEmpty()) {
+            return null;
+        }
+
+        return userList.stream()
+                .filter(listUser -> followedUsernames.contains(listUser.getUsername()))
+                .collect(Collectors.toList());
     }
 
 }
