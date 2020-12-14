@@ -2,7 +2,7 @@ package com.ricgra.socialnetwork.model;
 
 import com.ricgra.socialnetwork.util.TimeUtils;
 
-public class Post {
+public class Post implements Comparable<Post> {
 
     private String user;
     private String message;
@@ -75,6 +75,11 @@ public class Post {
         stringBuilder.append(formatMessageTime());
         stringBuilder.append(")");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public int compareTo(Post post) {
+        return Long.compare(post.getInsertTime(), insertTime);
     }
 
 }

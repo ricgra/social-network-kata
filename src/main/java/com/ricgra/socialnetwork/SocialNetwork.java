@@ -114,7 +114,7 @@ public class SocialNetwork {
 
         followdUsers.forEach(followedUser -> wallPosts.addAll(followedUser.getPosts()));
 
-        wallPosts.sort((post1, post2) -> Long.compare(post2.getInsertTime(), post1.getInsertTime()));
+        Collections.sort(wallPosts);
 
         return wallPosts;
     }
