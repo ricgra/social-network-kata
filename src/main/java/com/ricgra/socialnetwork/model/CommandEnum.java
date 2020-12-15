@@ -19,13 +19,18 @@ public enum CommandEnum {
         return pattern;
     }
 
-    public static CommandEnum getTypeFromInput(String input) {
-        if(StringUtils.isEmpty(input)) {
+    /**
+     * Get command type from a command in input
+     * @param inputCommand
+     * @return
+     */
+    public static CommandEnum getTypeFromInput(String inputCommand) {
+        if(StringUtils.isEmpty(inputCommand)) {
             return null;
         }
 
         for(CommandEnum command : values()) {
-            if(!" ".equals(command.getPattern()) && input.contains(command.getPattern())) {
+            if(!" ".equals(command.getPattern()) && inputCommand.contains(command.getPattern())) {
                 return command;
             }
         }

@@ -18,7 +18,7 @@ public abstract class AbstractCommand<T> implements Command<T> {
     }
 
     /**
-     * Parse console input
+     * Parse console input command
      * @return
      */
     protected String[] parseInputAsArray() {
