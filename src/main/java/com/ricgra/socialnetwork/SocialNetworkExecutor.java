@@ -39,10 +39,22 @@ public class SocialNetworkExecutor {
         }
     }
 
+    /**
+     * Execute a command
+     * @param command
+     * @param <T>
+     * @return
+     */
     private <T> T executeCommand(Command command) {
         return (T) command.execute();
     }
 
+    /**
+     * Execute a command and writing console output
+     * @param command
+     * @param printName
+     * @return
+     */
     private String executeCommandAndPrint(Command command, boolean printName) {
         List<Post> posts = executeCommand(command);
         if(posts == null) {
