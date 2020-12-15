@@ -1,3 +1,12 @@
+# Requirements
+- JDK >= 8
+- Maven
+
+# Run application
+```
+mvn clean package
+java -jar target/social-network-kata-1.0.0-SNAPSHOT-runnable.jar
+```
 # Social Networking Kata
 Credits to [Sandro Mancuso](https://twitter.com/sandromancuso) and [Samir Talwar](https://twitter.com/SamirTalwar) for the [original idea](http://monospacedmonologues.com/post/49250842364/the-social-networking-kata).
 
