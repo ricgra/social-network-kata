@@ -56,7 +56,3 @@ Implement a console-based social networking application (similar to Twitter) sat
 - Use whatever language and frameworks you want. Use something that you know well.
 - Provide a README with instructions on how to compile and run the application.
 - You must release your work with an OSI-approved open source license of your choice.
-
-**IMPORTANT:**  Implement the requirements focusing on **writing the best code** you can produce.
-
-**CODE SUBMISSION:** Add the code to your own Github account and send us the link.
